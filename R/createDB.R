@@ -63,7 +63,7 @@ createTrajectoriesTable <- function(connection, dbms, data = NULL, schema, table
   } else if(is.null(data)) {
     data <- selectTable(connection = connection, dbms = dbms, schema = schema, table = tableName)
   }
-  data <- tranformData(data, removeID = removeID, removeSTART = removeSTART, removeEXIT = removeEXIT, fixGender = fixGender, showOccurrance = showOccurrance)
+  data <- transformData(data, removeID = removeID, removeSTART = removeSTART, removeEXIT = removeEXIT, fixGender = fixGender, showOccurrance = showOccurrance)
   ##############################################################################
   #
   # Lets switch the name of "STATE" in colnames to "STATE_LABEL" or "GROUP" to
