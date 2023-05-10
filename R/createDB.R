@@ -148,7 +148,7 @@ createTrajectoriesTable <- function(connection, dbms, data = NULL, schema, table
     } else {return(print("Your DBMS is not supported, please contact package maintainer for an update!"))}
 
   DatabaseConnector::executeSql(connection = connection, sql)
-
+  return(data)
 }
 ################################################################################
 #
