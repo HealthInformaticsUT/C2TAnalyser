@@ -9,7 +9,8 @@ tranformData(
   removeID = TRUE,
   removeSTART = TRUE,
   removeEXIT = TRUE,
-  fixGender = TRUE
+  fixGender = TRUE,
+  showOccurrance = TRUE
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ tranformData(
 \item{removeEXIT}{If true all the "EXIT" states will be removed}
 
 \item{fixGender}{If true all the concept codes will be converted to "MALE", "FEMALE" or "OTHER"}
+
+\item{showOccurrance}{If true all the states will have an ordinal indicating how many passings for a patient have occurred}
 }
 \description{
 Prepare Cohort2Trajectory output to be used in the analyser

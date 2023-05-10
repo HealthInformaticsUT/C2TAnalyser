@@ -50,15 +50,20 @@ createConnection <- function(server = "localhost", database, password, user, dbm
 #' @param data Imported data
 #' @param schema Name of the used schema
 #' @param tableName Name of the datatable if it exists in the database
+#' @param removeID If true the original id of subject will be lost
+#' @param removeSTART If true all the "START" states will be removed
+#' @param removeEXIT If true all the "EXIT" states will be removed
+#' @param fixGender If true all the concept codes will be converted to "MALE", "FEMALE" or "OTHER"
+#' @param showOccurrance If true all the states will have an ordinal indicating how many passings for a patient have occurred
 #' @export
-createTrajectoriesTable <- function(connection, dbms, data = NULL, schema, tableName = NULL){
+createTrajectoriesTable <- function(connection, dbms, data = NULL, schema, tableName = NULL, removeID = FALSE, removeSTART = FALSE, removeEXIT = FALSE, fixGender = FALSE, showOccurrance = FALSE){
 
   if(!(is.null(data) | is.null(tableName))){
     return(print("No data provided! ABORTING!"))
   } else if(is.null(data)) {
-    data = tranformData(selectTable(connection = connection, dbms = dbms, schema = schema, table = tableName))
+    data <- selectTable(connection = connection, dbms = dbms, schema = schema, table = tableName)
   }
-
+  data <- tranformData(data, removeID = removeID, removeSTART = removeSTART, removeEXIT = removeEXIT, fixGender = fixGender, showOccurrance = showOccurrance)
   ##############################################################################
   #
   # Lets switch the name of "STATE" in colnames to "STATE_LABEL" or "GROUP" to

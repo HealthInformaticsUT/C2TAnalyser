@@ -9,7 +9,12 @@ createTrajectoriesTable(
   dbms,
   data = NULL,
   schema,
-  tableName = NULL
+  tableName = NULL,
+  removeID = FALSE,
+  removeSTART = FALSE,
+  removeEXIT = FALSE,
+  fixGender = FALSE,
+  showOccurrance = FALSE
 )
 }
 \arguments{
@@ -22,6 +27,16 @@ createTrajectoriesTable(
 \item{schema}{Name of the used schema}
 
 \item{tableName}{Name of the datatable if it exists in the database}
+
+\item{removeID}{If true the original id of subject will be lost}
+
+\item{removeSTART}{If true all the "START" states will be removed}
+
+\item{removeEXIT}{If true all the "EXIT" states will be removed}
+
+\item{fixGender}{If true all the concept codes will be converted to "MALE", "FEMALE" or "OTHER"}
+
+\item{showOccurrance}{If true all the states will have an ordinal indicating how many passings for a patient have occurred}
 }
 \description{
 Create support tables and dump data into the database if it is not present

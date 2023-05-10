@@ -127,13 +127,15 @@ outputTrajectoryStatisticsTables <- function(dataTable, settings = NULL) {
 #' @param removeSTART If true all the "START" states will be removed
 #' @param removeEXIT If true all the "EXIT" states will be removed
 #' @param fixGender If true all the concept codes will be converted to "MALE", "FEMALE" or "OTHER"
+#' @param showOccurrance If true all the states will have an ordinal indicating how many passings for a patient have occurred
 #' @export
 tranformData <-
   function(data,
            removeID = TRUE,
            removeSTART = TRUE,
            removeEXIT = TRUE,
-           fixGender = TRUE) {
+           fixGender = TRUE,
+           showOccurrance = TRUE) {
     returnData <- data
     cols_to_check <-
       c(
@@ -193,5 +195,12 @@ tranformData <-
                  "OTHER")
         ))
     }
+    if (showOccurrance)
+    {
+      returnData <- dplyr::arrange(dplyr::ungroup(dplyr::mutate(dplyr::group_by(dplyr::arrange(returnData, SUBJECT_ID, STATE_LABEL), SUBJECT_ID, STATE_START_DATE), OCCURRENCE = row_number())), SUBJECT_ID, STATE_START_DATE)
+      returnData$STATE_LABEL <- paste(returnData$STATE_LABEL, returnData$OCCURRENCE, sep = " #")
+      returnData <- dplyr::select(returnData, -OCCURRENCE)
+    }
+
     return(returnData)
   }
